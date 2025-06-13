@@ -1,7 +1,0 @@
-streamlit
-tensorflow
-matplotlib
-numpy
-fpdf2
-Pillow
-gdown
