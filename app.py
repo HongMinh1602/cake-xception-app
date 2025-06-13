@@ -129,6 +129,24 @@ descriptions = {
     "Macaron": "🌈 Macaron là bánh hạnh nhân Pháp, vỏ giòn tan, bên trong mềm mịn, nhiều màu sắc đẹp mắt.",
     "Tiramisu": "☕ Tiramisu là bánh Ý đặc trưng với vị cà phê, kem mascarpone và lớp cacao phủ bên trên."
 }
+recipe_assets = {
+    "Cheesecake": {
+        "pdf": "https://raw.githubusercontent.com/HongMinh1602/cake-xception-app/main/recipes/cheesecake_recipe.pdf",
+        "video": "https://www.youtube.com/watch?v=aMBecr0SJ8I&pp=ygUkaMaw4bubbmcgZOG6q24gbMOgbSBiw6FuaCBjaGVlc2VjYWtl"
+    },
+    "Donut": {
+        "pdf": "https://raw.githubusercontent.com/HongMinh1602/cake-xception-app/main/recipes/donut_recipe.pdf",
+        "video": "https://www.youtube.com/watch?v=zMkLRWjahOk&pp=ygUfaMaw4bubbmcgZOG6q24gbMOgbSBiw6FuaCBkb251dNIHCQneCQGHKiGM7w%3D%3D"
+    },
+    "Macaron": {
+        "pdf": "https://raw.githubusercontent.com/HongMinh1602/cake-xception-app/main/recipes/macaron_recipe.pdf",
+        "video": "https://www.youtube.com/watch?v=MFyc72Bfqbs&pp=ygUhaMaw4bubbmcgZOG6q24gbMOgbSBiw6FuaCBtYWNhcm9u"
+    },
+    "Tiramisu": {
+        "pdf": "https://raw.githubusercontent.com/HongMinh1602/cake-xception-app/main/recipes/tiramisu_recipe.pdf",
+        "video": "https://www.youtube.com/watch?v=vF54bj3V5Es"
+    }
+}
 
 def predict(img):
     img = img.resize((299, 299))
@@ -182,6 +200,18 @@ if uploaded_file:
         st.markdown("### 🔍 Kết quả dự đoán:")
         st.markdown(f"👉 **{pred_class}** với độ tin cậy **{confidence*100:.2f}%**")
         st.info(descriptions[pred_class])
+        with st.expander("📖 Xem công thức và hướng dẫn chi tiết"):
+            st.markdown("#### 📄 Công thức chi tiết (PDF):")
+            st.markdown(
+                f'<iframe src="{recipe_assets[pred_class]["pdf"]}" width="100%" height="500px" type="application/pdf"></iframe>',
+                unsafe_allow_html=True
+            )
+        
+            st.markdown("#### 🎥 Video hướng dẫn:")
+            st.markdown(
+                f'<a href="{recipe_assets[pred_class]["video"]}" target="_blank">👉 Xem video hướng dẫn</a>',
+                unsafe_allow_html=True
+            )
 
     # ✅ VẼ BIỂU ĐỒ CHỈ NẾU ĐÃ TẢI ẢNH
     st.markdown("### 📊 Biểu đồ xác suất")
