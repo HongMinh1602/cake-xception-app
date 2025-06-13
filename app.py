@@ -102,7 +102,7 @@ section[data-testid="stSidebar"] {
     box-shadow: 2px 0 8px rgba(0,0,0,0.05);
 }
 .block-container {
-    padding-top: 0.5rem;
+    padding-top: 1.5rem;
     padding-bottom: 2rem;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -171,7 +171,7 @@ if uploaded_file:
 
     # Vẽ bar chart
     st.markdown("### 📊 Biểu đồ xác suất")
-    fig1, ax1 = plt.subplots(figsize=(4, 1.5))
+    fig1, ax1 = plt.subplots(figsize=(6, 3.5))
     y_pos = np.arange(len(class_names))
     ax1.barh(y_pos, preds, align='center', color=["#FFC107", "#FF5722", "#9C27B0", "#3F51B5"])
     ax1.set_yticks(y_pos)
