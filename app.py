@@ -237,12 +237,14 @@ if uploaded_file:
     # ✅ Xem công thức
         with st.expander("📖 Xem công thức và hướng dẫn chi tiết"):
             st.markdown("#### 📄 Công thức chi tiết (PDF):")
-            pdf_url = recipe_assets[pred_class]["pdf"]
-            viewer_url = f"https://mozilla.github.io/pdf.js/web/viewer.html?file={pdf_url}"
-            components.iframe(viewer_url, height=600)
-    
-            st.markdown("#### 🎥 Video hướng dẫn:")
             st.markdown(
-                f'<a href="{recipe_assets[pred_class]["video"]}" target="_blank">👉 Xem video hướng dẫn</a>',
+                f'<a href="{recipe_assets[pred_class]["pdf"]}" target="_blank">📄 👉 Mở công thức chi tiết (PDF)</a>',
                 unsafe_allow_html=True
             )
+        
+            st.markdown("#### 🎥 Video hướng dẫn:")
+            st.markdown(
+                f'<a href="{recipe_assets[pred_class]["video"]}" target="_blank">👉 Xem video hướng dẫn trên YouTube</a>',
+                unsafe_allow_html=True
+            )
+
