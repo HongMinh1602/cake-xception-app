@@ -169,10 +169,6 @@ st.title("🎂 Phân loại bánh với mô hình Xception")
 
 uploaded_file = st.file_uploader("📷 Tải ảnh bánh lên", type=["jpg", "jpeg", "png"])
 
-st.title("🎂 Phân loại bánh với mô hình Xception")
-
-uploaded_file = st.file_uploader("📷 Tải ảnh bánh lên", type=["jpg", "jpeg", "png"])
-
 if uploaded_file:
     img = Image.open(uploaded_file)
 
