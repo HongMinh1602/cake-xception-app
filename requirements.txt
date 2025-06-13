@@ -1,5 +1,7 @@
 streamlit
 tensorflow
-pillow
+matplotlib
 numpy
+fpdf2
+Pillow
 gdown
