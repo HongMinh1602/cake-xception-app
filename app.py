@@ -176,7 +176,7 @@ if uploaded_file:
     # Vẽ bar chart
 st.markdown("### 📊 Biểu đồ xác suất")
 
-col_left, col_chart, col_right = st.columns([0, 6, 1])  # Mở rộng cột chính
+col_left, col_chart, col_right = st.columns([0.5, 6, 1.5])  # Mở rộng cột chính
 
 with col_chart:
     fig1, ax1 = plt.subplots(figsize=(6.5, 3.5))  # Biểu đồ lớn hơn
