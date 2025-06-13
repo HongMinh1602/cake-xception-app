@@ -60,7 +60,7 @@ def create_pdf(image_path, pred_class, confidence, preds, class_names, bar_fig):
     pdf.cell(0, 10, "Biểu đồ xác suất", ln=1)
 
     current_y = pdf.get_y()
-    pdf.image(bar_path, x=15, y=current_y, w=170)
+    pdf.image(bar_path, x=30, y=current_y, w=140) 
 
     pdf_output = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
     pdf.output(pdf_output.name)
@@ -143,7 +143,7 @@ if uploaded_file:
 
     # Vẽ bar chart
     st.markdown("### 📊 Biểu đồ xác suất")
-    fig1, ax1 = plt.subplots()
+    fig1, ax1 = plt.subplots(figsize=(6, 3.5))
     y_pos = np.arange(len(class_names))
     ax1.barh(y_pos, preds, align='center', color=["#FFC107", "#FF5722", "#9C27B0", "#3F51B5"])
     ax1.set_yticks(y_pos)
