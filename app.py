@@ -186,7 +186,7 @@ if uploaded_file:
     # ✅ VẼ BIỂU ĐỒ CHỈ NẾU ĐÃ TẢI ẢNH
     st.markdown("### 📊 Biểu đồ xác suất")
 
-    col_left, col_chart, col_right = st.columns([0.1, 6, 0.1])
+    col_left, col_chart, col_right = st.columns([0.3, 6, 0.3])
     with col_chart:
         fig1, ax1 = plt.subplots(figsize=(6.5, 3.5))
         y_pos = np.arange(len(class_names))
