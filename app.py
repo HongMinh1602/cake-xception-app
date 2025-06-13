@@ -168,7 +168,7 @@ if uploaded_file:
     preds, pred_class, confidence = predict(img)
 
     with result_col:
-        st.markdown('<div style="padding-top: 0px;">', unsafe_allow_html=True)
+        st.markdown('<div style="padding-top: 1px;">', unsafe_allow_html=True)
         st.markdown("### 🔍 Kết quả dự đoán:")
         st.markdown(f"👉 **{pred_class}** với độ tin cậy **{confidence*100:.2f}%**")
         st.info(descriptions[pred_class])
