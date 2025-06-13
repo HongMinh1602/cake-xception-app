@@ -236,8 +236,10 @@ if uploaded_file:
 
     # ✅ Xem công thức
     with st.expander("📖 Xem công thức và hướng dẫn chi tiết"):
-        st.markdown("#### 📄 Công thức chi tiết (PDF):")
-        components.iframe(recipe_assets[pred_class]["pdf"], height=500, scrolling=True)
+         st.markdown(
+            f'<a href="{recipe_assets[pred_class]["pdf"]}" target="_blank">📄 👉 Mở công thức chi tiết (PDF)</a>',
+            unsafe_allow_html=True
+         )
 
         st.markdown("#### 🎥 Video hướng dẫn:")
         st.markdown(
