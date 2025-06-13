@@ -234,15 +234,13 @@ if uploaded_file:
                 mime="application/pdf"
             )
 
-        if pred_class in recipe_assets:
-        with st.expander("📖 Xem công thức và hướng dẫn chi tiết"):
-            st.markdown("#### 📄 Công thức chi tiết (PDF):")
-            components.iframe(recipe_assets[pred_class]["pdf"], height=500, scrolling=True)
-    
-            st.markdown("#### 🎥 Video hướng dẫn:")
-            st.markdown(
-                f'<a href="{recipe_assets[pred_class]["video"]}" target="_blank">👉 Xem video hướng dẫn</a>',
-                unsafe_allow_html=True
-            )
-        else:
-            st.warning(f"❗ Không tìm thấy công thức cho loại bánh: {pred_class}")
+    # ✅ Xem công thức
+    with st.expander("📖 Xem công thức và hướng dẫn chi tiết"):
+        st.markdown("#### 📄 Công thức chi tiết (PDF):")
+        components.iframe(recipe_assets[pred_class]["pdf"], height=500, scrolling=True)
+
+        st.markdown("#### 🎥 Video hướng dẫn:")
+        st.markdown(
+            f'<a href="{recipe_assets[pred_class]["video"]}" target="_blank">👉 Xem video hướng dẫn</a>',
+            unsafe_allow_html=True
+        )
