@@ -92,20 +92,30 @@ h2, h3 {
     margin-top: 0.5rem;
 }
 .stAlert {
+    border-radius: 12px;
     border-left: 6px solid #FF5722;
     box-shadow: 0 3px 10px rgba(0,0,0,0.08);
     font-size: 1rem;
 }
 section[data-testid="stSidebar"] {
     border-radius: 0 12px 12px 0;
-    background-color: #fff;
+    background-color: #ffffff;
     box-shadow: 2px 0 8px rgba(0,0,0,0.05);
 }
 .block-container {
-    padding-top: 2rem;
+    padding-top: 1.5rem;
     padding-bottom: 2rem;
     padding-left: 1rem;
     padding-right: 1rem;
+}
+/* Giao diện gọn gàng hơn trên điện thoại */
+    @media screen and (max-width: 600px) {
+        .stAlert {
+            font-size: 0.95rem;
+        }
+        h1 {
+            font-size: 1.5rem;
+        }
 }
     </style>
 """, unsafe_allow_html=True)
