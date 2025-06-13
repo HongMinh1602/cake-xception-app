@@ -169,6 +169,10 @@ st.title("🎂 Phân loại bánh với mô hình Xception")
 
 uploaded_file = st.file_uploader("📷 Tải ảnh bánh lên", type=["jpg", "jpeg", "png"])
 
+st.title("🎂 Phân loại bánh với mô hình Xception")
+
+uploaded_file = st.file_uploader("📷 Tải ảnh bánh lên", type=["jpg", "jpeg", "png"])
+
 if uploaded_file:
     img = Image.open(uploaded_file)
 
@@ -179,40 +183,38 @@ if uploaded_file:
     preds, pred_class, confidence = predict(img)
 
     with result_col:
-        st.markdown('<div style="padding-top: 1px;">', unsafe_allow_html=True)
         st.markdown("### 🔍 Kết quả dự đoán:")
         st.markdown(f"👉 **{pred_class}** với độ tin cậy **{confidence*100:.2f}%**")
         st.info(descriptions[pred_class])
 
-        # Vẽ bar chart
-        st.markdown("### 📊 Biểu đồ xác suất")
-    
-        col_left, col_chart, col_right = st.columns([0.1, 6, 0.1])  # Mở rộng cột chính
-    
-        with col_chart:
-            fig1, ax1 = plt.subplots(figsize=(6.5, 3.5))  # Biểu đồ lớn hơn
-            y_pos = np.arange(len(class_names))
-            ax1.barh(y_pos, preds, align='center', color=["#FFC107", "#FF5722", "#9C27B0", "#3F51B5"])
-            ax1.set_yticks(y_pos)
-            ax1.set_yticklabels(class_names, fontsize=11)
-            ax1.invert_yaxis()
-            ax1.set_xlabel('Xác suất', fontsize=11)
-            ax1.set_xlim(0, 1.0)
-            ax1.set_title('Phân bố xác suất các loại bánh', fontsize=13)
-        
-            for i, v in enumerate(preds):
-                ax1.text(v + 0.01, i, f"{v*100:.2f}%", va='center', fontsize=10)
-        
-            st.pyplot(fig1)
-    
-            # Xuất PDF
-            pdf_filename = st.text_input("📄 Đặt tên file PDF (không cần .pdf)", value="bao_cao_du_doan_banh")
-            if st.button("📄 Lưu kết quả dạng PDF"):
-                pdf_file = create_pdf(img, pred_class, confidence, preds, class_names, fig1)
-                with open(pdf_file.name, "rb") as f:
-                    st.download_button(
-                        label="📥 Tải file PDF",
-                        data=f,
-                        file_name=f"{pdf_filename}.pdf",
-                        mime="application/pdf"
-                    )
+    # ✅ VẼ BIỂU ĐỒ CHỈ NẾU ĐÃ TẢI ẢNH
+    st.markdown("### 📊 Biểu đồ xác suất")
+
+    col_left, col_chart, col_right = st.columns([0.1, 6, 0.1])
+    with col_chart:
+        fig1, ax1 = plt.subplots(figsize=(6.5, 3.5))
+        y_pos = np.arange(len(class_names))
+        ax1.barh(y_pos, preds, align='center', color=["#FFC107", "#FF5722", "#9C27B0", "#3F51B5"])
+        ax1.set_yticks(y_pos)
+        ax1.set_yticklabels(class_names, fontsize=11)
+        ax1.invert_yaxis()
+        ax1.set_xlabel('Xác suất', fontsize=11)
+        ax1.set_xlim(0, 1.0)
+        ax1.set_title('Phân bố xác suất các loại bánh', fontsize=13)
+
+        for i, v in enumerate(preds):
+            ax1.text(v + 0.01, i, f"{v*100:.2f}%", va='center', fontsize=10)
+
+        st.pyplot(fig1)
+
+    # ✅ TẠO FILE PDF CHỈ NẾU ĐÃ CÓ KẾT QUẢ
+    pdf_filename = st.text_input("📄 Đặt tên file PDF (không cần .pdf)", value="bao_cao_du_doan_banh")
+    if st.button("📄 Lưu kết quả dạng PDF"):
+        pdf_file = create_pdf(img, pred_class, confidence, preds, class_names, fig1)
+        with open(pdf_file.name, "rb") as f:
+            st.download_button(
+                label="📥 Tải file PDF",
+                data=f,
+                file_name=f"{pdf_filename}.pdf",
+                mime="application/pdf"
+            )
