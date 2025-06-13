@@ -138,16 +138,20 @@ with st.sidebar.expander("📘**Thông tin nhóm**"):
 
 with st.sidebar.expander("🧠 Giới thiệu model Xception"):
     st.markdown("""
-    **Xception** là CNN nâng cấp từ Inception, sử dụng depthwise separable convolution để tăng hiệu quả.
-    Nhóm đã fine-tune để phân loại 4 loại bánh: *Cheesecake, Donut, Macaron, Tiramisu*.
+    1. **Xception** là viết tắt của *Extreme Inception* – một mô hình mạng nơ-ron tích chập (CNN) nâng cấp từ Inception.
+    2. Thay vì dùng các khối tích chập tiêu chuẩn, Xception sử dụng **Depthwise Separable Convolution** để tăng hiệu quả tính toán.
+    3. Mô hình này có **hiệu suất cao** trong phân loại ảnh, đặc biệt tốt khi áp dụng cho các tập dữ liệu hình ảnh có chi tiết đặc trưng như bánh ngọt.
+    4. Nhóm đã fine-tune Xception để phân biệt giữa 4 loại bánh: *Cheesecake, Donut, Macaron, Tiramisu*.
     """)
 
 with st.sidebar.expander("📊 Model hoạt động như thế nào"):
     st.markdown("""
-    1. 🖼 Tải ảnh bánh
-    2. 📏 Resize 299x299
-    3. 🤖 Dự đoán bằng model Xception
-    4. 📈 Xuất kết quả với xác suất
+    ### 🔍 Cách hoạt động của mô hình:
+    1. 🖼 Tải ảnh bánh lên ứng dụng.
+    2. 📏 Ảnh được resize về **299x299** pixel và chuẩn hóa dữ liệu.
+    3. 🤖 Mô hình Xception (Deep Learning) xử lý ảnh để trích xuất đặc trưng.
+    4. 📈 Mô hình tính toán xác suất thuộc về từng loại bánh.
+    5. ✅ Kết quả cuối cùng là loại bánh có xác suất cao nhất.
     """)
 
 st.title("🎂 Phân loại bánh với mô hình Xception")
@@ -164,25 +168,25 @@ if uploaded_file:
     preds, pred_class, confidence = predict(img)
 
     with result_col:
-        st.markdown('<div style="padding-top: 150px;">', unsafe_allow_html=True)
+        st.markdown('<div style="padding-top: 0px;">', unsafe_allow_html=True)
         st.markdown("### 🔍 Kết quả dự đoán:")
         st.markdown(f"👉 **{pred_class}** với độ tin cậy **{confidence*100:.2f}%**")
         st.info(descriptions[pred_class])
 
     # Vẽ bar chart
     st.markdown("### 📊 Biểu đồ xác suất")
-    fig1, ax1 = plt.subplots(figsize=(6, 3.5))
+    fig1, ax1 = plt.subplots(figsize=(4, 2.2))
     y_pos = np.arange(len(class_names))
     ax1.barh(y_pos, preds, align='center', color=["#FFC107", "#FF5722", "#9C27B0", "#3F51B5"])
     ax1.set_yticks(y_pos)
-    ax1.set_yticklabels(class_names)
+    ax1.set_yticklabels(class_names, fontsize=9)
     ax1.invert_yaxis()
-    ax1.set_xlabel('Xác suất')
+    ax1.set_xlabel('Xác suất', fontsize=9)
     ax1.set_xlim(0, 1.0)
-    ax1.set_title('Phân bố xác suất các loại bánh')
+    ax1.set_title('Phân bố xác suất các loại bánh', fontsize=10)
 
     for i, v in enumerate(preds):
-        ax1.text(v + 0.01, i, f"{v*100:.2f}%", va='center', fontsize=9)
+        ax1.text(v + 0.01, i, f"{v*100:.2f}%", va='center', fontsize=8)
 
     st.pyplot(fig1)
 
