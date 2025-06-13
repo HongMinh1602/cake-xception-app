@@ -175,20 +175,25 @@ if uploaded_file:
 
     # Vẽ bar chart
     st.markdown("### 📊 Biểu đồ xác suất")
-    fig1, ax1 = plt.subplots(figsize=(4, 2.2))
-    y_pos = np.arange(len(class_names))
-    ax1.barh(y_pos, preds, align='center', color=["#FFC107", "#FF5722", "#9C27B0", "#3F51B5"])
-    ax1.set_yticks(y_pos)
-    ax1.set_yticklabels(class_names, fontsize=9)
-    ax1.invert_yaxis()
-    ax1.set_xlabel('Xác suất', fontsize=9)
-    ax1.set_xlim(0, 1.0)
-    ax1.set_title('Phân bố xác suất các loại bánh', fontsize=10)
 
-    for i, v in enumerate(preds):
-        ax1.text(v + 0.01, i, f"{v*100:.2f}%", va='center', fontsize=8)
+    # Chia layout để thu nhỏ khung chứa biểu đồ
+    col_left, col_chart, col_right = st.columns([3, 2, 3])  # Giảm chiều rộng biểu đồ
 
-    st.pyplot(fig1)
+    with col_chart:
+        fig1, ax1 = plt.subplots(figsize=(3.6, 2.1))
+        y_pos = np.arange(len(class_names))
+        ax1.barh(y_pos, preds, align='center', color=["#FFC107", "#FF5722", "#9C27B0", "#3F51B5"])
+        ax1.set_yticks(y_pos)
+        ax1.set_yticklabels(class_names, fontsize=9)
+        ax1.invert_yaxis()
+        ax1.set_xlabel('Xác suất', fontsize=9)
+        ax1.set_xlim(0, 1.0)
+        ax1.set_title('Phân bố xác suất các loại bánh', fontsize=10)
+    
+        for i, v in enumerate(preds):
+            ax1.text(v + 0.01, i, f"{v*100:.2f}%", va='center', fontsize=8)
+    
+        st.pyplot(fig1)
 
     # Xuất PDF
     pdf_filename = st.text_input("📄 Đặt tên file PDF (không cần .pdf)", value="bao_cao_du_doan_banh")
