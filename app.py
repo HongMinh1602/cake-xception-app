@@ -175,21 +175,22 @@ if uploaded_file:
 
     # Vẽ bar chart
 st.markdown("### 📊 Biểu đồ xác suất")
-col_left, col_chart, col_right = st.columns([2, 3, 2])
+
+col_left, col_chart, col_right = st.columns([1, 6, 1])  # Mở rộng cột chính
 
 with col_chart:
-    fig1, ax1 = plt.subplots(figsize=(4.5, 2.7))
+    fig1, ax1 = plt.subplots(figsize=(6.5, 3.5))  # Biểu đồ lớn hơn
     y_pos = np.arange(len(class_names))
     ax1.barh(y_pos, preds, align='center', color=["#FFC107", "#FF5722", "#9C27B0", "#3F51B5"])
     ax1.set_yticks(y_pos)
-    ax1.set_yticklabels(class_names, fontsize=10)
+    ax1.set_yticklabels(class_names, fontsize=11)
     ax1.invert_yaxis()
-    ax1.set_xlabel('Xác suất', fontsize=10)
+    ax1.set_xlabel('Xác suất', fontsize=11)
     ax1.set_xlim(0, 1.0)
-    ax1.set_title('Phân bố xác suất các loại bánh', fontsize=11)
+    ax1.set_title('Phân bố xác suất các loại bánh', fontsize=13)
 
     for i, v in enumerate(preds):
-        ax1.text(v + 0.01, i, f"{v*100:.2f}%", va='center', fontsize=9)
+        ax1.text(v + 0.01, i, f"{v*100:.2f}%", va='center', fontsize=10)
 
     st.pyplot(fig1)
 
