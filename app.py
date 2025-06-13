@@ -72,13 +72,41 @@ st.set_page_config(page_title="Phân loại bánh", layout="wide")
 
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
-    html, body, [class*="css"] { font-family: 'Quicksand', sans-serif; }
-    img { border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); max-width: 100%; height: auto; }
-    h1 { color: #e65100; font-size: 2.2rem; font-weight: 700; }
-    h2, h3 { color: #3F51B5; margin-top: 0.5rem; }
-    .stAlert { border-left: 6px solid #FF5722; box-shadow: 0 3px 10px rgba(0,0,0,0.08); font-size: 1rem; }
-    section[data-testid="stSidebar"] { border-radius: 0 12px 12px 0; background-color: #fff; box-shadow: 2px 0 8px rgba(0,0,0,0.05); }
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+html, body, [class*="css"] {
+    font-family: 'Quicksand', sans-serif;
+}
+img {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 100%;
+    height: auto;
+}
+h1 {
+    color: #e65100;
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+h2, h3 {
+    color: #3F51B5;
+    margin-top: 0.5rem;
+}
+.stAlert {
+    border-left: 6px solid #FF5722;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    font-size: 1rem;
+}
+section[data-testid="stSidebar"] {
+    border-radius: 0 12px 12px 0;
+    background-color: #fff;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.05);
+}
+.block-container {
+    padding-top: 0.5rem;
+    padding-bottom: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
     </style>
 """, unsafe_allow_html=True)
 
@@ -143,7 +171,7 @@ if uploaded_file:
 
     # Vẽ bar chart
     st.markdown("### 📊 Biểu đồ xác suất")
-    fig1, ax1 = plt.subplots(figsize=(6, 3.5))
+    fig1, ax1 = plt.subplots(figsize=(4, 1.5))
     y_pos = np.arange(len(class_names))
     ax1.barh(y_pos, preds, align='center', color=["#FFC107", "#FF5722", "#9C27B0", "#3F51B5"])
     ax1.set_yticks(y_pos)
