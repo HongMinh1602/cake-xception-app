@@ -9,6 +9,7 @@ import tempfile
 import io
 import os
 import gdown
+import streamlit.components.v1 as components
 
 def download_model_if_needed():
     model_path = "Xception_banh_model.keras"
