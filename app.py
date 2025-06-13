@@ -131,19 +131,19 @@ descriptions = {
 }
 recipe_assets = {
     "Cheesecake": {
-        "pdf": "https://raw.githubusercontent.com/HongMinh1602/cake-xception-app/main/recipes/cheesecake_recipe.pdf",
+        "pdf": "https://hongminh1602.github.io/cake-xception-app/recipes/chesecake_recipe.pdf",
         "video": "https://www.youtube.com/watch?v=aMBecr0SJ8I&pp=ygUkaMaw4bubbmcgZOG6q24gbMOgbSBiw6FuaCBjaGVlc2VjYWtl"
     },
     "Donut": {
-        "pdf": "https://raw.githubusercontent.com/HongMinh1602/cake-xception-app/main/recipes/donut_recipe.pdf",
+        "pdf": "https://hongminh1602.github.io/cake-xception-app/recipes/donut_recipe.pdf",
         "video": "https://www.youtube.com/watch?v=zMkLRWjahOk&pp=ygUfaMaw4bubbmcgZOG6q24gbMOgbSBiw6FuaCBkb251dNIHCQneCQGHKiGM7w%3D%3D"
     },
     "Macaron": {
-        "pdf": "https://raw.githubusercontent.com/HongMinh1602/cake-xception-app/main/recipes/macaron_recipe.pdf",
+        "pdf": "https://hongminh1602.github.io/cake-xception-app/recipes/macaron_recipe.pdf",
         "video": "https://www.youtube.com/watch?v=MFyc72Bfqbs&pp=ygUhaMaw4bubbmcgZOG6q24gbMOgbSBiw6FuaCBtYWNhcm9u"
     },
     "Tiramisu": {
-        "pdf": "https://raw.githubusercontent.com/HongMinh1602/cake-xception-app/main/recipes/tiramisu_recipe.pdf",
+        "pdf": "https://hongminh1602.github.io/cake-xception-app/recipes/tiramisu_recipe.pdf",
         "video": "https://www.youtube.com/watch?v=vF54bj3V5Es"
     }
 }
@@ -236,7 +236,6 @@ if uploaded_file:
     # ✅ XEM CÔNG THỨC
     with st.expander("📖 Xem công thức và hướng dẫn chi tiết"):
             st.markdown("#### 📄 Công thức chi tiết (PDF):")
-            import streamlit.components.v1 as components
             components.iframe(recipe_assets[pred_class]["pdf"], height=500, scrolling=True)
         
             st.markdown("#### 🎥 Video hướng dẫn:")
