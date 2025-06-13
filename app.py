@@ -202,10 +202,8 @@ if uploaded_file:
         st.info(descriptions[pred_class])
         with st.expander("📖 Xem công thức và hướng dẫn chi tiết"):
             st.markdown("#### 📄 Công thức chi tiết (PDF):")
-            st.markdown(
-                f'<iframe src="{recipe_assets[pred_class]["pdf"]}" width="100%" height="500px" type="application/pdf"></iframe>',
-                unsafe_allow_html=True
-            )
+            import streamlit.components.v1 as components
+            components.iframe(recipe_assets[pred_class]["pdf"], height=500, scrolling=True)
         
             st.markdown("#### 🎥 Video hướng dẫn:")
             st.markdown(
