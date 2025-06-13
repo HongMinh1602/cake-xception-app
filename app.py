@@ -102,7 +102,7 @@ section[data-testid="stSidebar"] {
     box-shadow: 2px 0 8px rgba(0,0,0,0.05);
 }
 .block-container {
-    padding-top: 1.5rem;
+    padding-top: 2rem;
     padding-bottom: 2rem;
     padding-left: 1rem;
     padding-right: 1rem;
