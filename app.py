@@ -10,6 +10,7 @@ import io
 import os
 import gdown
 import streamlit.components.v1 as components
+import pandas as pd
 
 def download_model_if_needed():
     model_path = "Xception_banh_model.keras"
@@ -148,6 +149,33 @@ recipe_assets = {
         "video": "https://www.youtube.com/watch?v=vF54bj3V5Es"
     }
 }
+# Gợi ý tiệm bánh theo từng loại (dùng dữ liệu giả định)
+locations = {
+    "Cheesecake": [
+        {"name": "Tiệm Bánh Phô Mai Anna", "lat": 10.7725, "lon": 106.6983},
+        {"name": "Cheesecake & Co.", "lat": 10.776, "lon": 106.700}
+    ],
+    "Donut": [
+        {"name": "Donut Fresh", "lat": 10.7765, "lon": 106.6923},
+        {"name": "Tiệm Donut Deli", "lat": 10.774, "lon": 106.695}
+    ],
+    "Macaron": [
+        {"name": "Macaron L’amour", "lat": 10.775, "lon": 106.691},
+        {"name": "Paris Sweet", "lat": 10.778, "lon": 106.693}
+    ],
+    "Tiramisu": [
+    {
+        "name": "Kat's Bakery",
+        "lat": 21.0183411,
+        "lon": 105.828166,
+        "map_url": "https://www.google.com/maps/dir/20.925027,105.8642597/21.0183411,105.828166/"
+    },
+    {
+        "name": "Sweet Italia",
+        "lat": 10.771,
+        "lon": 106.698
+    }
+]
 
 def predict(img):
     img = img.resize((299, 299))
@@ -234,7 +262,22 @@ if uploaded_file:
                 mime="application/pdf"
             )
 
-    # ✅ Xem công thức và video hướng dẫn (luôn hiển thị sau khi có ảnh)
+    # ✅ Địa chỉ mua 
+    if pred_class in locations:
+    st.markdown("### 📍 Gợi ý địa điểm mua bánh")
+
+    df_map = pd.DataFrame([{
+        "latitude": loc["lat"],
+        "longitude": loc["lon"]
+    } for loc in locations[pred_class]])
+    st.map(df_map)
+
+    for item in locations[pred_class]:
+        st.markdown(f"**🍰 {item['name']}** – 📍 ({item['lat']:.4f}, {item['lon']:.4f})")
+        if 'map_url' in item:
+            st.markdown(f"[🗺️ Xem đường đi trên Google Maps]({item['map_url']})", unsafe_allow_html=True)
+    
+    # ✅ Xem công thức và video hướng dẫn 
     with st.expander("📖 Xem công thức và hướng dẫn chi tiết"):
         st.markdown("#### 🎥 Video hướng dẫn:")
         st.markdown(
@@ -244,6 +287,6 @@ if uploaded_file:
         
         st.markdown("#### 📄 Công thức chi tiết (PDF):")
         st.markdown(
-            f'<a href="{recipe_assets[pred_class]["pdf"]}" target="_blank">📄 👉 Mở công thức dạng PDF</a>',
+            f'<a href="{recipe_assets[pred_class]["pdf"]}" target="_blank">👉 Mở công thức dạng PDF</a>',
             unsafe_allow_html=True
         )
