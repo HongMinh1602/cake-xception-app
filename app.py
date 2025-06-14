@@ -31,7 +31,7 @@ def haversine(lat1, lon1, lat2, lon2):
     c = 2 * atan2(sqrt(a), sqrt(1 - a))
     return R * c  # kết quả trả về tính bằng km
 
-def create_pdf(image_path, pred_class, confidence, preds, class_names, bar_fig):
+def create_pdf(image_path, pred_class, confidence, preds, class_names, bar_fig, prices, qty):
     pdf = FPDF()
     pdf.set_left_margin(15)
     pdf.set_right_margin(20)
@@ -62,11 +62,16 @@ def create_pdf(image_path, pred_class, confidence, preds, class_names, bar_fig):
     y_start = pdf.get_y()
     pdf.set_xy(80, y_start)
     pdf.set_font("DejaVu", '', 12)
-    pdf.multi_cell(0, 8, f"Dự đoán: {pred_class} ({confidence*100:.2f}%)\n\n" +
-                     "\n".join([f"- {cls}: {prob*100:.2f}%" for cls, prob in zip(class_names, preds)]))
+    
+    pdf.multi_cell(0, 8,
+        f"Dự đoán: {pred_class} ({confidence*100:.2f}%)\n"
+        f"Giá bán: {prices[pred_class]:,} VND/chiếc\n"
+        f"Số lượng: {qty}\n"
+        f"Thành tiền: {prices[pred_class] * qty:,} VND\n\n"
+        + "\n".join([f"- {cls}: {prob*100:.2f}%" for cls, prob in zip(class_names, preds)])
+    )
 
     pdf.ln(50)
-
     pdf.set_font("DejaVu", 'B', 12)
     pdf.cell(0, 10, "Biểu đồ xác suất", ln=1)
 
@@ -139,6 +144,12 @@ descriptions = {
     "Donut": "🍩 Donut là bánh vòng chiên, thường được phủ socola, đường hoặc topping trang trí nhiều màu.",
     "Macaron": "🌈 Macaron là bánh hạnh nhân Pháp, vỏ giòn tan, bên trong mềm mịn, nhiều màu sắc đẹp mắt.",
     "Tiramisu": "☕ Tiramisu là bánh Ý đặc trưng với vị cà phê, kem mascarpone và lớp cacao phủ bên trên."
+}
+prices = {
+    "Cheesecake": 85000,
+    "Donut": 40000,
+    "Macaron": 20000,
+    "Tiramisu": 60000
 }
 recipe_assets = {
     "Cheesecake": {
@@ -223,7 +234,7 @@ def predict(img):
 # Sidebar
 with st.sidebar.expander("📘**Thông tin nhóm**"):
     st.markdown("👥 **Nhóm:** 14")
-    st.markdown("👨‍🏫 **GVHD:** Thầy Vũ Trọng Sinh")
+    st.markdown("👨‍🏫 **GVHD:** Th.S Vũ Trọng Sinh")
     st.markdown("🏫 **Lớp:** 242IS54A01")
     st.markdown("📚 **Môn:** Trí tuệ nhân tạo")
     st.sidebar.markdown("---")
@@ -263,6 +274,13 @@ if uploaded_file:
         st.markdown("### 🔍 Kết quả dự đoán:")
         st.markdown(f"👉 **{pred_class}** với độ tin cậy **{confidence*100:.2f}%**")
         st.info(descriptions[pred_class])
+        # Hiển thị giá và chọn số lượng
+        st.markdown(f"💵 **Giá bánh:** {prices[pred_class]:,} VND/chiếc")
+
+        qty = st.number_input("🔢 Nhập số lượng muốn mua", min_value=1, max_value=100, value=1)
+        total_price = qty * prices[pred_class]
+        
+        st.success(f"🧾 **Thành tiền:** {total_price:,} VND")
 
     # ✅ VẼ BIỂU ĐỒ CHỈ NẾU ĐÃ TẢI ẢNH
     st.markdown("### 📊 Biểu đồ xác suất")
@@ -284,10 +302,10 @@ if uploaded_file:
 
         st.pyplot(fig1)
 
-    # ✅ TẠO FILE PDF CHỈ NẾU ĐÃ CÓ KẾT QUẢ
-    pdf_filename = st.text_input("📄 Đặt tên file PDF (không cần .pdf)", value="bao_cao_du_doan_banh")
+    # Tạo PDF
+    pdf_filename = st.text_input("📄 Đặt tên file PDF (không cần .pdf)", value="hoa_don_banh")
     if st.button("📄 Lưu kết quả dạng PDF"):
-        pdf_file = create_pdf(img, pred_class, confidence, preds, class_names, fig1)
+        pdf_file = create_pdf(img, pred_class, confidence, preds, class_names, fig1, prices, qty)
         with open(pdf_file.name, "rb") as f:
             st.download_button(
                 label="📥 Tải file PDF",
