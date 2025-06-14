@@ -161,16 +161,39 @@ recipe_assets = {
 # Gợi ý tiệm bánh theo từng loại (dùng dữ liệu giả định)
 locations = {
     "Cheesecake": [
-        {"name": "Tiệm Bánh Phô Mai Anna", "lat": 10.7725, "lon": 106.6983},
-        {"name": "Cheesecake & Co.", "lat": 10.776, "lon": 106.700}
+    {
+        "name": "Reverie Dessert ( bán online ) ",
+        "lat": 0,  
+        "lon": 0,
+    }
     ],
     "Donut": [
-        {"name": "Donut Fresh", "lat": 10.7765, "lon": 106.6923},
-        {"name": "Tiệm Donut Deli", "lat": 10.774, "lon": 106.695}
+    {
+        "name": "Giản Donuts",
+        "lat": 21.018940671560365,  
+        "lon": 105.84002679999999,
+        "map_url": "https://maps.app.goo.gl/S2khYBf9hSV4zCQv9?g_st=iz"
+    },
+    {
+        "name": "Lịm Donuts Hanoi",
+        "lat": 221.03075186295445, 
+        "lon": 105.84661844047851,
+        "map_url": "https://maps.app.goo.gl/oNHR1FLvwJ83FJST8?g_st=iz"
+    }
     ],
     "Macaron": [
-        {"name": "Macaron L’amour", "lat": 10.775, "lon": 106.691},
-        {"name": "Paris Sweet", "lat": 10.778, "lon": 106.693}
+    {
+        "name": "La Rosette Macaron",
+        "lat": 20.995968424740052, 
+        "lon": 105.82483821986816,
+        "map_url": "https://maps.app.goo.gl/Y6bQkQJZ2jfbtXN66"
+    },
+    {
+        "name": "Ryan's Patisserie",
+        "lat": 21.011402225563693,
+        "lon": 105.81893313068578,
+        "map_url": "https://maps.app.goo.gl/utpgS6Hm6xM8UKrJ8?g_st=iz"
+    }
     ],
     "Tiramisu": [
     {
@@ -180,9 +203,10 @@ locations = {
         "map_url": "https://www.google.com/maps/dir/20.925027,105.8642597/21.0183411,105.828166/"
     },
     {
-        "name": "Sweet Italia",
-        "lat": 10.771,
-        "lon": 106.698
+        "name": "Cake by Xuf",
+        "lat": 21.010030892626265,
+        "lon": 105.83136459052602,
+        "map_url": "https://maps.app.goo.gl/oxBQ2XRJxgx7mMJD7?g_st=iz"
     }
     ]
 }
