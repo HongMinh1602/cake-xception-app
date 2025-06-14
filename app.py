@@ -11,6 +11,7 @@ import os
 import gdown
 import streamlit.components.v1 as components
 import pandas as pd
+from math import radians, sin, cos, sqrt, atan2
 
 def download_model_if_needed():
     model_path = "Xception_banh_model.keras"
@@ -21,6 +22,14 @@ def download_model_if_needed():
 
 # Tải model nếu cần
 download_model_if_needed()
+
+def haversine(lat1, lon1, lat2, lon2):
+    R = 6371  # Bán kính Trái Đất (km)
+    dlat = radians(lat2 - lat1)
+    dlon = radians(lon2 - lon1)
+    a = sin(dlat/2)**2 + cos(radians(lat1)) * cos(radians(lat2)) * sin(dlon/2)**2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+    return R * c  # kết quả trả về tính bằng km
 
 def create_pdf(image_path, pred_class, confidence, preds, class_names, bar_fig):
     pdf = FPDF()
@@ -272,8 +281,13 @@ if uploaded_file:
         } for loc in locations[pred_class]])
         st.map(df_map)
     
+        # Vị trí người dùng (giả định)
+        user_lat, user_lon = 21.00892346213516, 105.82871755204096
+
         for item in locations[pred_class]:
-            st.markdown(f"**🍰 {item['name']}** – 📍 ({item['lat']:.4f}, {item['lon']:.4f})")
+            distance_km = haversine(user_lat, user_lon, item['lat'], item['lon'])
+            st.markdown(f"**🍰 {item['name']}** – 📍 Cách bạn khoảng **{distance_km:.2f} km**")
+            
             if 'map_url' in item:
                 st.markdown(f"[🗺️ Xem đường đi trên Google Maps]({item['map_url']})", unsafe_allow_html=True)
     
