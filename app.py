@@ -46,7 +46,7 @@ def create_pdf(image_path, pred_class, confidence, preds, class_names, bar_fig, 
     pdf.add_font("DejaVu", "B", os.path.join(font_folder, "DejaVuSans-Bold.ttf"), uni=True)
 
     pdf.set_font("DejaVu", 'B', 16)
-    pdf.cell(0, 10, txt="BÁO CÁO PHÂN LOẠI BÁNH", ln=True, align="C")
+    pdf.cell(0, 10, txt="HÓA ĐƠN BÁN", ln=True, align="C")
     pdf.ln(10)
 
     # 🕒 Thêm ngày giờ
@@ -94,7 +94,7 @@ def create_pdf(image_path, pred_class, confidence, preds, class_names, bar_fig, 
     pdf.image(bar_path, x=30, y=current_y, w=140)
 
     # 💳 QR thanh toán
-    pdf.ln(80)
+    pdf.ln(75)
     pdf.set_font("DejaVu", 'B', 12)
     pdf.cell(0, 10, "Quét mã QR để thanh toán:", ln=1)
     pdf.image(qr_path, x=80, w=50)
