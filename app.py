@@ -162,9 +162,10 @@ recipe_assets = {
 locations = {
     "Cheesecake": [
     {
-        "name": "Reverie Dessert ( bán online ) ",
-        "lat": 0,  
-        "lon": 0,
+        "name": "Reverie Dessert",
+        "lat": 21.039049084212127, 
+        "lon": 105.81595422594583,
+        "map_url": "https://maps.app.goo.gl/8QTXJiuxNT71kZECA"
     }
     ],
     "Donut": [
@@ -176,8 +177,8 @@ locations = {
     },
     {
         "name": "Lịm Donuts Hanoi",
-        "lat": 221.03075186295445, 
-        "lon": 105.84661844047851,
+        "lat": 21.030892061213674,
+        "lon": 105.84673645767144,
         "map_url": "https://maps.app.goo.gl/oNHR1FLvwJ83FJST8?g_st=iz"
     }
     ],
