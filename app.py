@@ -12,6 +12,8 @@ import gdown
 import streamlit.components.v1 as components
 import pandas as pd
 from math import radians, sin, cos, sqrt, atan2
+import qrcode
+from datetime import datetime
 
 def download_model_if_needed():
     model_path = "Xception_banh_model.keras"
@@ -46,12 +48,24 @@ def create_pdf(image_path, pred_class, confidence, preds, class_names, bar_fig, 
     pdf.cell(0, 10, txt="BÁO CÁO PHÂN LOẠI BÁNH", ln=True, align="C")
     pdf.ln(10)
 
+    # 🕒 Thêm ngày giờ
+    now = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    pdf.set_font("DejaVu", '', 12)
+    pdf.cell(0, 10, f"🕒 Ngày giờ: {now}", ln=True)
+    pdf.ln(5)
+
     tmp_dir = tempfile.mkdtemp()
     input_img_path = os.path.join(tmp_dir, "input.jpg")
     bar_path = os.path.join(tmp_dir, "bar.png")
+    qr_path = os.path.join(tmp_dir, "qr.png")
 
     image_path.save(input_img_path)
     bar_fig.savefig(bar_path, bbox_inches='tight')
+
+    # 🔳 Tạo mã QR
+    payment_url = f"https://example.com/thanh-toan/{int(datetime.now().timestamp())}"
+    qr = qrcode.make(payment_url)
+    qr.save(qr_path)
 
     pdf.set_font("DejaVu", 'B', 12)
     pdf.cell(90, 10, "Ảnh đầu vào", ln=0)
@@ -68,15 +82,20 @@ def create_pdf(image_path, pred_class, confidence, preds, class_names, bar_fig, 
         f"Giá bán: {prices[pred_class]:,} VND/chiếc\n"
         f"Số lượng: {qty}\n"
         f"Thành tiền: {prices[pred_class] * qty:,} VND\n\n"
-        + "\n".join([f"- {cls}: {prob*100:.2f}%" for cls, prob in zip(class_names, preds)])
     )
 
-    pdf.ln(50)
+    pdf.ln(20)
     pdf.set_font("DejaVu", 'B', 12)
     pdf.cell(0, 10, "Biểu đồ xác suất", ln=1)
 
     current_y = pdf.get_y()
-    pdf.image(bar_path, x=30, y=current_y, w=140) 
+    pdf.image(bar_path, x=30, y=current_y, w=140)
+
+    # 💳 QR thanh toán
+    pdf.ln(60)
+    pdf.set_font("DejaVu", 'B', 12)
+    pdf.cell(0, 10, "Quét mã QR để thanh toán:", ln=1)
+    pdf.image(qr_path, x=80, w=50)
 
     pdf_output = tempfile.NamedTemporaryFile(delete=False, suffix=".pdf")
     pdf.output(pdf_output.name)
