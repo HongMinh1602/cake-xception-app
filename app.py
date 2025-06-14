@@ -234,17 +234,16 @@ if uploaded_file:
                 mime="application/pdf"
             )
 
-    # ✅ Xem công thức
-        with st.expander("📖 Xem công thức và hướng dẫn chi tiết"):
-            st.markdown("#### 📄 Công thức chi tiết (PDF):")
-            st.markdown(
-                f'<a href="{recipe_assets[pred_class]["pdf"]}" target="_blank">📄 👉 Mở công thức chi tiết (PDF)</a>',
-                unsafe_allow_html=True
-            )
+    # ✅ Xem công thức và video hướng dẫn (luôn hiển thị sau khi có ảnh)
+    with st.expander("📖 Xem công thức và hướng dẫn chi tiết"):
+        st.markdown("#### 🎥 Video hướng dẫn:")
+        st.markdown(
+            f'<a href="{recipe_assets[pred_class]["video"]}" target="_blank">👉 Xem video hướng dẫn </a>',
+            unsafe_allow_html=True
+        )
         
-            st.markdown("#### 🎥 Video hướng dẫn:")
-            st.markdown(
-                f'<a href="{recipe_assets[pred_class]["video"]}" target="_blank">👉 Xem video hướng dẫn trên YouTube</a>',
-                unsafe_allow_html=True
-            )
-
+        st.markdown("#### 📄 Công thức chi tiết (PDF):")
+        st.markdown(
+            f'<a href="{recipe_assets[pred_class]["pdf"]}" target="_blank">📄 👉 Mở công thức dạng PDF</a>',
+            unsafe_allow_html=True
+        )
