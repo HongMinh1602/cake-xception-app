@@ -264,18 +264,18 @@ if uploaded_file:
 
     # ✅ Địa chỉ mua 
     if pred_class in locations:
-    st.markdown("### 📍 Gợi ý địa điểm mua bánh")
-
-    df_map = pd.DataFrame([{
-        "latitude": loc["lat"],
-        "longitude": loc["lon"]
-    } for loc in locations[pred_class]])
-    st.map(df_map)
-
-    for item in locations[pred_class]:
-        st.markdown(f"**🍰 {item['name']}** – 📍 ({item['lat']:.4f}, {item['lon']:.4f})")
-        if 'map_url' in item:
-            st.markdown(f"[🗺️ Xem đường đi trên Google Maps]({item['map_url']})", unsafe_allow_html=True)
+        st.markdown("### 📍 Gợi ý địa điểm mua bánh")
+    
+        df_map = pd.DataFrame([{
+            "latitude": loc["lat"],
+            "longitude": loc["lon"]
+        } for loc in locations[pred_class]])
+        st.map(df_map)
+    
+        for item in locations[pred_class]:
+            st.markdown(f"**🍰 {item['name']}** – 📍 ({item['lat']:.4f}, {item['lon']:.4f})")
+            if 'map_url' in item:
+                st.markdown(f"[🗺️ Xem đường đi trên Google Maps]({item['map_url']})", unsafe_allow_html=True)
     
     # ✅ Xem công thức và video hướng dẫn 
     with st.expander("📖 Xem công thức và hướng dẫn chi tiết"):
