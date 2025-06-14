@@ -14,6 +14,7 @@ import pandas as pd
 from math import radians, sin, cos, sqrt, atan2
 import qrcode
 from datetime import datetime
+import pytz
 
 def download_model_if_needed():
     model_path = "Xception_banh_model.keras"
@@ -49,7 +50,8 @@ def create_pdf(image_path, pred_class, confidence, preds, class_names, bar_fig, 
     pdf.ln(10)
 
     # 🕒 Thêm ngày giờ
-    now = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    vn_time = datetime.now(pytz.timezone("Asia/Ho_Chi_Minh"))
+    now = vn_time.strftime("%d/%m/%Y %H:%M:%S")
     pdf.set_font("DejaVu", '', 12)
     pdf.cell(0, 10, f"🕒 Ngày giờ: {now}", ln=True)
     pdf.ln(5)
@@ -92,7 +94,7 @@ def create_pdf(image_path, pred_class, confidence, preds, class_names, bar_fig, 
     pdf.image(bar_path, x=30, y=current_y, w=140)
 
     # 💳 QR thanh toán
-    pdf.ln(60)
+    pdf.ln(80)
     pdf.set_font("DejaVu", 'B', 12)
     pdf.cell(0, 10, "Quét mã QR để thanh toán:", ln=1)
     pdf.image(qr_path, x=80, w=50)
