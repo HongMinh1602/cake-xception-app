@@ -175,8 +175,8 @@ locations = {
         "lat": 10.771,
         "lon": 106.698
     }
-]
-
+    ]
+}
 def predict(img):
     img = img.resize((299, 299))
     img_array = image.img_to_array(img) / 255.0
